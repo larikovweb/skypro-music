@@ -1,6 +1,6 @@
 // ROUTES
 export const MAIN_ROUTE = '/';
-export const ABOUT_ROUTE = '/about';
+export const MY_PLAYLIST_ROUTE = '/my-playlist';
 export const NOT_FOUND_ROUTE = '*';
 
 // BREAKPOINTS

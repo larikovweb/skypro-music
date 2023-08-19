@@ -26,21 +26,17 @@ export const calcFluidFontSize = (
 
 export const fontFace = (
   $font_family: string,
-  $file_path: { ttf: string; woff: string; woff2: string; eot: string; svg: string },
+  $file_path: { woff: string; woff2: string },
   $weight: number | string = 'normal',
   $style = 'normal',
 ) => {
-  const name = $file_path.ttf.split('/').pop();
+  const name = $file_path.woff.split('/').pop();
   const nameLocal = name?.split('-').join(' ');
 
   return `@font-face {
     font-family: ${$font_family};
-    src: url('${$file_path.eot}');
     src: local('${name}'), local('${nameLocal}'),
-      url('${$file_path.eot}?#iefix') format('embedded-opentype'),
       url('${$file_path.woff}') format('woff'), url('${$file_path.woff2}') format('woff2'),
-      url('${$file_path.svg}') format('svg'), url('${$file_path.ttf}') format('ttf'),
-      url('${$file_path.ttf}') format('truetype');
     font-weight: ${$weight};
     font-style: ${$style};
     font-display: swap;

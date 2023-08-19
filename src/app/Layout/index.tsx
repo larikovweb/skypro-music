@@ -1,23 +1,29 @@
 import styled from '@emotion/styled';
 import { FC } from 'react';
-import { Header } from './Header';
 import { Outlet } from 'react-router-dom';
-import { Footer } from './Footer';
 import { HelmetHead } from '../../components/HelmetHead';
+import { Navigation } from './Navigation/Navigation';
+import { Sidebar } from './Sidebar/Sidebar';
+import { Player } from './Player/Player';
 
 export const Layout: FC = () => {
   return (
     <>
       <HelmetHead title="Общий заголовок" descr="Общее описание" />
-      {/* <Header /> */}
       <Main>
+        <Navigation />
         <Outlet />
+        <Sidebar />
+        <Player />
       </Main>
-      {/* <Footer /> */}
     </>
   );
 };
 
 const Main = styled.main`
-  display: block;
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  justify-content: center;
+  padding-bottom: 4.6rem;
 `;

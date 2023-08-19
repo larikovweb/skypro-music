@@ -8,7 +8,7 @@ export const $phoneWidth = `${SCREEN_SM}px`;
 export const $mainFont = 'Roboto, sans-serif';
 export const $mainFontSize = '21.3333px';
 export const $mainFontColor = '#000000';
-export const $mainBackgroundColor = '#ffffff';
+export const $mainBackgroundColor = '#181818';
 
-export const $primaryColor = '#E3F37E';
-export const $darkColor = '#05141A';
+export const $primaryColor = '#B672FF';
+export const $darkColor = '#181818';
