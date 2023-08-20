@@ -10,3 +10,15 @@ export const fadeIn = keyframes`
         opacity: 1;
     }
 `;
+
+export const skeletonLoading = keyframes`
+    0% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.5;
+    }
+`;

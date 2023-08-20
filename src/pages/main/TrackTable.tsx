@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { TrackRow, TrackRowSort } from './TrackRow';
+import { ITrack } from '../../interfaces/interfaces';
+import { TrackSkeleton } from '../../components/skeletons/TrackSkeleton';
 
-const fakeTracks = [
+const fakeTracks: ITrack[] = [
   {
     id: 1,
     name: 'Guilt',
@@ -125,12 +127,29 @@ const fakeTracks = [
 ];
 
 export const TrackTable: FC = () => {
+  const [tracks, setTracks] = useState<ITrack[]>([]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setTracks(fakeTracks);
+    }, 5000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  });
+
+  const loading =
+    tracks.length === 0 && [...new Array(20)].map((_, i) => <TrackSkeleton key={i} />);
+
+  const content =
+    tracks.length > 0 && tracks.map((track) => <TrackRow key={track.id} {...track} />);
+
   return (
     <Wrapper>
       <TrackRowSort />
-      {fakeTracks.map((track) => (
-        <TrackRow key={track.id} {...track} />
-      ))}
+      {loading}
+      {content}
     </Wrapper>
   );
 };

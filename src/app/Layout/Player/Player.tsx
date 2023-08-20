@@ -1,10 +1,32 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { IconNext, IconPlay, IconRepeat, IconShuffle } from '../../../icons';
 import { TrackImg } from '../../../components/track/TrackImg';
 import { BtnLike } from '../../../components/btn/BtnLike';
 import styled from '@emotion/styled';
+import { ITrack } from '../../../interfaces/interfaces';
+import { PlayerSkeleton } from '../../../components/skeletons/PlayerSkeleton';
+
+const fakeTrack = {
+  id: 1,
+  name: 'Guilt',
+  artist: 'Nero',
+  album: 'Welcome Reality',
+  duration: '4:44',
+};
 
 export const Player: FC = () => {
+  const [activeTrack, setActiveTrack] = useState<ITrack>();
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setActiveTrack(fakeTrack);
+    }, 5000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  });
+
   return (
     <Wrapper>
       <Prev>
@@ -22,12 +44,18 @@ export const Player: FC = () => {
       <Shuffle>
         <IconShuffle />
       </Shuffle>
-      <TrackImg src="" alt="" />
-      <TrackName>
-        <b>I’m fire</b>
-        <span>Ali Bakgor</span>
-      </TrackName>
-      <BtnLike />
+      {activeTrack ? (
+        <>
+          <TrackImg src="" alt="" />
+          <TrackName>
+            <b>I’m fire</b>
+            <span>Ali Bakgor</span>
+          </TrackName>
+          <BtnLike />
+        </>
+      ) : (
+        <PlayerSkeleton />
+      )}
     </Wrapper>
   );
 };

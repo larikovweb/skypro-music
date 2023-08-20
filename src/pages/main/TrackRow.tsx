@@ -1,19 +1,11 @@
 import styled from '@emotion/styled';
 import { FC } from 'react';
-import { IconLike, IconMusic, IconTime } from '../../icons';
-import { $primaryColor } from '../../styled/variables';
+import { IconTime } from '../../icons';
 import { BtnLike } from '../../components/btn/BtnLike';
 import { TrackImg } from '../../components/track/TrackImg';
+import { ITrack } from '../../interfaces/interfaces';
 
-type Props = {
-  id: number;
-  name: string;
-  artist: string;
-  album: string;
-  duration: string;
-};
-
-export const TrackRow: FC<Props> = (props) => {
+export const TrackRow: FC<ITrack> = (props) => {
   const { id, name, artist, album, duration } = props;
 
   return (
