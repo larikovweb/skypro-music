@@ -4,4 +4,11 @@ export interface ITrack {
   artist: string;
   album: string;
   duration: string;
+  year: number;
+  genre: string;
+}
+
+export interface ISelectOption {
+  label: string | number;
+  value: string | number;
 }

@@ -7,11 +7,13 @@ import { ITrack } from '../../../interfaces/interfaces';
 import { PlayerSkeleton } from '../../../components/skeletons/PlayerSkeleton';
 
 const fakeTrack = {
-  id: 1,
-  name: 'Guilt',
-  artist: 'Nero',
-  album: 'Welcome Reality',
-  duration: '4:44',
+  id: 13,
+  name: 'The Sound of Silence',
+  artist: 'Simon & Garfunkel',
+  album: 'Wednesday Morning, 3 A.M.',
+  duration: '3:05',
+  year: 1964,
+  genre: 'Folk',
 };
 
 export const Player: FC = () => {
@@ -48,8 +50,8 @@ export const Player: FC = () => {
         <>
           <TrackImg src="" alt="" />
           <TrackName>
-            <b>I’m fire</b>
-            <span>Ali Bakgor</span>
+            <b>{activeTrack.name}</b>
+            <span>{activeTrack.artist}</span>
           </TrackName>
           <BtnLike />
         </>
