@@ -1,5 +1,14 @@
 import { Pages } from '../pages';
-import { MAIN_ROUTE, NOT_FOUND_ROUTE, SIGNIN_ROUTE, SIGNUP_ROUTE } from '../utils/consts';
+import {
+  DAILY_PLAYLIST_ROUTE,
+  DANCE_HITS_ROUTE,
+  INDIE_ENERGY_ROUTE,
+  MAIN_ROUTE,
+  MY_PLAYLIST_ROUTE,
+  NOT_FOUND_ROUTE,
+  SIGNIN_ROUTE,
+  SIGNUP_ROUTE,
+} from '../utils/consts';
 
 export type RouteType = {
   path: string;
@@ -8,7 +17,10 @@ export type RouteType = {
 
 export const privateRoutes: RouteType[] = [
   { path: MAIN_ROUTE, component: <Pages.Main /> },
-  //...
+  { path: DAILY_PLAYLIST_ROUTE, component: <Pages.DailyPlaylist /> },
+  { path: DANCE_HITS_ROUTE, component: <Pages.DanceHits100 /> },
+  { path: INDIE_ENERGY_ROUTE, component: <Pages.IndieEnergy /> },
+  { path: MY_PLAYLIST_ROUTE, component: <Pages.MyPlaylist /> },
   { path: NOT_FOUND_ROUTE, component: <Pages.NotFound /> },
 ];
 

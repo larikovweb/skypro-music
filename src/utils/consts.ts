@@ -3,6 +3,9 @@ export const MAIN_ROUTE = '/';
 export const MY_PLAYLIST_ROUTE = '/my-playlist';
 export const SIGNIN_ROUTE = '/';
 export const SIGNUP_ROUTE = '/signup';
+export const DAILY_PLAYLIST_ROUTE = '/daily-playlist';
+export const DANCE_HITS_ROUTE = '/dance-hits';
+export const INDIE_ENERGY_ROUTE = '/indie-energy';
 export const NOT_FOUND_ROUTE = '*';
 
 // BREAKPOINTS

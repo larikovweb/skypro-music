@@ -27,6 +27,15 @@ const Wrapper = styled.div<{ openMenu: boolean }>`
   flex-direction: column;
   justify-content: space-between;
   transform: translateX(-50%);
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translate(-50%, -50%);
+    width: 2rem;
+    height: 2rem;
+  }
   i {
     position: absolute;
     display: inline-block;

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { FC } from 'react';
-import { SelectMulty } from '../../components/select/SelectMulty';
+import { SelectMulty } from '../select/SelectMulty';
 import { ITrack } from '../../interfaces/interfaces';
 
 type Props = {

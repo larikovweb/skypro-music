@@ -4,21 +4,23 @@ import styled from '@emotion/styled';
 import { Link } from 'react-router-dom';
 import { rem } from '../../styled/mixins';
 import { IconSdebar1, IconSdebar2, IconSdebar3 } from '../../icons';
+import { NavigateClick } from '../route/NavigateClick';
+import { DAILY_PLAYLIST_ROUTE, DANCE_HITS_ROUTE, INDIE_ENERGY_ROUTE } from '../../utils/consts';
 
 const links = [
   {
     label: 'Плейлист дня',
-    path: '/',
+    path: DAILY_PLAYLIST_ROUTE,
     icon: <IconSdebar1 />,
   },
   {
     label: '100 танцевальных хитов',
-    path: '/',
+    path: DANCE_HITS_ROUTE,
     icon: <IconSdebar2 />,
   },
   {
     label: 'Инди-заряд',
-    path: '/',
+    path: INDIE_ENERGY_ROUTE,
     icon: <IconSdebar3 />,
   },
 ];
@@ -27,10 +29,12 @@ export const Nav: FC = () => {
   return (
     <List>
       {links.map(({ label, path, icon }, i) => (
-        <Item key={i} to={path}>
-          {icon}
-          <Label>{label}</Label>
-        </Item>
+        <NavigateClick key={i} to={path}>
+          <Item>
+            {icon}
+            <Label>{label}</Label>
+          </Item>
+        </NavigateClick>
       ))}
     </List>
   );
@@ -45,7 +49,8 @@ const List = styled.div`
   padding-bottom: 4.6rem;
 `;
 
-const Item = styled(Link)`
+const Item = styled.div`
+  cursor: pointer;
   position: relative;
   display: flex;
   justify-content: center;
