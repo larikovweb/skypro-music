@@ -56,7 +56,7 @@ const Wrapper = styled.button<ButtonProps>`
   line-height: 1.5rem;
   letter-spacing: -0.00338rem;
   height: 3.25rem;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 2.8rem;
   display: flex;
   justify-content: center;
   align-items: center;

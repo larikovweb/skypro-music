@@ -3,7 +3,6 @@ import { FC } from 'react';
 import { Outlet } from 'react-router-dom';
 import { HelmetHead } from '../../components/HelmetHead';
 import { Navigation } from './Navigation/Navigation';
-import { Sidebar } from './Sidebar/Sidebar';
 import { Player } from './Player/Player';
 
 export const Layout: FC = () => {
@@ -13,7 +12,6 @@ export const Layout: FC = () => {
       <Main>
         <Navigation />
         <Outlet />
-        <Sidebar />
         <Player />
       </Main>
     </>
@@ -23,7 +21,8 @@ export const Layout: FC = () => {
 const Main = styled.main`
   position: relative;
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto 1fr;
   justify-content: center;
   padding-bottom: 4.6rem;
+  min-height: 100vh;
 `;

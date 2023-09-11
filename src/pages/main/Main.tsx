@@ -6,6 +6,7 @@ import { InputSearch } from '../../components/input/InputSearch';
 import { ITrack } from '../../interfaces/interfaces';
 import { TrackFilter } from './TrackFilter';
 import { TrackTable } from './TrackTable';
+import { Sidebar } from '../../components/Sidebar/Sidebar';
 
 const fakeTracks: ITrack[] = [
   {
@@ -129,19 +130,26 @@ const fakeTracks: ITrack[] = [
 
 const Main: FC = () => {
   return (
-    <>
+    <Wrapper>
       <HelmetHead title="Заголовок Главной" descr="Описание Главной" />
-      <Wrapper>
+      <Body>
         <InputSearch />
         <Title>Треки</Title>
         <TrackFilter data={fakeTracks} />
         <TrackTable data={fakeTracks} />
-      </Wrapper>
-    </>
+      </Body>
+      <Sidebar />
+    </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr auto;
+  justify-content: center;
+`;
+
+const Body = styled.div`
   padding-top: 2.06rem;
 `;
 

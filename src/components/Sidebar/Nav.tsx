@@ -1,8 +1,9 @@
 import { FC } from 'react';
 import styled from '@emotion/styled';
-import { IconSdebar1, IconSdebar2, IconSdebar3 } from '../../../icons';
-import { rem } from '../../../styled/mixins';
+
 import { Link } from 'react-router-dom';
+import { rem } from '../../styled/mixins';
+import { IconSdebar1, IconSdebar2, IconSdebar3 } from '../../icons';
 
 const links = [
   {

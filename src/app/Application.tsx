@@ -19,7 +19,7 @@ const Application: FC = () => {
 };
 
 const RouteSelect: FC = () => {
-  const session = false;
+  const session = true;
 
   if (session) {
     return (

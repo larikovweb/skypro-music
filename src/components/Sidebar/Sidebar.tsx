@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { IconLogout } from '../../../icons';
 import styled from '@emotion/styled';
-import { rem } from '../../../styled/mixins';
 import { Nav } from './Nav';
+import { IconLogout } from '../../icons';
+import { rem } from '../../styled/mixins';
 
 export const Sidebar: FC = () => {
   return (
