@@ -7,7 +7,7 @@ export const ArrowIco: FC = () => (
 );
 
 export const IconLogo: FC = () => (
-  <svg width="114" height="17" viewBox="0 0 114 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg viewBox="0 0 114 17" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M3.13502 16.5394C1.31059 17.5933 0 16.7151 0 15.153C0 13.4902 0 8.50072 0 8.50072C0 8.50072 0 3.51127 0 1.8484C0 0.286352 1.30978 -0.591842 3.13502 0.461991C5.97654 2.10291 14.5003 7.0273 14.5003 7.0273C15.6336 7.68188 15.6336 9.31874 14.5003 9.97332C14.5003 9.97413 5.97654 14.8985 3.13502 16.5394Z"
       fill="#00C1FF"
@@ -584,7 +584,7 @@ export const IconSdebar3: FC = () => (
 
 export const IconSearch: FC = () => (
   <svg viewBox="0 0 17 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M11.9277 13.2842L15.3701 17.5737" fill="none" stroke-linecap="round" />
+    <path d="M11.9277 13.2842L15.3701 17.5737" fill="none" strokeLinecap="round" />
     <circle
       cx="8.48533"
       cy="8.99454"
@@ -652,5 +652,76 @@ export const IconShuffle: FC = () => (
       d="M19.5 3L14.5 5.88675V0.113249L19.5 3ZM10.1632 5.91673L9.70863 5.7084L10.1632 5.91673ZM7.33683 12.0833L6.8823 11.8749L7.33683 12.0833ZM0.5 14.5H2.79151V15.5H0.5V14.5ZM6.8823 11.8749L9.70863 5.7084L10.6177 6.12505L7.79137 12.2916L6.8823 11.8749ZM14.7085 2.5H15V3.5H14.7085V2.5ZM9.70863 5.7084C10.6047 3.75341 12.5579 2.5 14.7085 2.5V3.5C12.949 3.5 11.3508 4.52552 10.6177 6.12505L9.70863 5.7084ZM2.79151 14.5C4.55105 14.5 6.14918 13.4745 6.8823 11.8749L7.79137 12.2916C6.89533 14.2466 4.94205 15.5 2.79151 15.5V14.5Z"
       stroke="none"
     />
+  </svg>
+);
+
+export const IconLoader: FC = () => (
+  <svg width="120" height="30" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" fill="#fff">
+    <circle cx="15" cy="15" r="15">
+      <animate
+        attributeName="r"
+        from="15"
+        to="15"
+        begin="0s"
+        dur="0.8s"
+        values="15;9;15"
+        calcMode="linear"
+        repeatCount="indefinite"
+      />
+      <animate
+        attributeName="fill-opacity"
+        from="1"
+        to="1"
+        begin="0s"
+        dur="0.8s"
+        values="1;.5;1"
+        calcMode="linear"
+        repeatCount="indefinite"
+      />
+    </circle>
+    <circle cx="60" cy="15" r="9" fillOpacity="0.3">
+      <animate
+        attributeName="r"
+        from="9"
+        to="9"
+        begin="0s"
+        dur="0.8s"
+        values="9;15;9"
+        calcMode="linear"
+        repeatCount="indefinite"
+      />
+      <animate
+        attributeName="fill-opacity"
+        from="0.5"
+        to="0.5"
+        begin="0s"
+        dur="0.8s"
+        values=".5;1;.5"
+        calcMode="linear"
+        repeatCount="indefinite"
+      />
+    </circle>
+    <circle cx="105" cy="15" r="15">
+      <animate
+        attributeName="r"
+        from="15"
+        to="15"
+        begin="0s"
+        dur="0.8s"
+        values="15;9;15"
+        calcMode="linear"
+        repeatCount="indefinite"
+      />
+      <animate
+        attributeName="fill-opacity"
+        from="1"
+        to="1"
+        begin="0s"
+        dur="0.8s"
+        values="1;.5;1"
+        calcMode="linear"
+        repeatCount="indefinite"
+      />
+    </circle>
   </svg>
 );

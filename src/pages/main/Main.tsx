@@ -2,9 +2,10 @@ import styled from '@emotion/styled';
 import { FC } from 'react';
 import { HelmetHead } from '../../components/HelmetHead';
 import { InputSearch } from '../../components/input/InputSearch';
-import { TrackTable } from './TrackTable';
+
 import { ITrack } from '../../interfaces/interfaces';
 import { TrackFilter } from './TrackFilter';
+import { TrackTable } from './TrackTable';
 
 const fakeTracks: ITrack[] = [
   {

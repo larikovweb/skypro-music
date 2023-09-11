@@ -1098,6 +1098,26 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@bunt/assert@^0.29.18":
+  version "0.29.18"
+  resolved "https://registry.yarnpkg.com/@bunt/assert/-/assert-0.29.18.tgz#40e3ce99cdba6e7a5fac63a21879968607a8bf0a"
+  integrity sha512-YD3Q2cOHJDS+e4aIDLSJx9nwdLZSL8T2r8q610G6GDv6/jVyLXpGfC7Fy2NRFu4kWf1mBg86EiZ2wUjYH53zKQ==
+  dependencies:
+    "@bunt/is" "^0.29.18"
+    "@bunt/type" "^0.29.16"
+
+"@bunt/is@^0.29.18":
+  version "0.29.18"
+  resolved "https://registry.yarnpkg.com/@bunt/is/-/is-0.29.18.tgz#f83d0cdd289b0ab531a37aa0f7841114f545df46"
+  integrity sha512-RCDpwPLpQCvaIyY5oWeuL3FHDBmVaaBkix+35LtkIi/OCEa8v9FW9qVoYsmLb5wy0xejVIjaSp8DVCUGQcY22g==
+  dependencies:
+    "@bunt/type" "^0.29.16"
+
+"@bunt/type@^0.29.16":
+  version "0.29.16"
+  resolved "https://registry.yarnpkg.com/@bunt/type/-/type-0.29.16.tgz#84d1c34d28b198c4a2b0b8234a802b5e92ed88ef"
+  integrity sha512-KsEhZipEhT9DSW5NGqTf4FLeUdr0JSo4kCi/FtM4/W9R3E+SOAaLRjDrS9SDgVhHoMctdfnLC98yyqXe1MEooQ==
+
 "@csstools/normalize.css@*":
   version "12.0.0"
   resolved "https://registry.yarnpkg.com/@csstools/normalize.css/-/normalize.css-12.0.0.tgz#a9583a75c3f150667771f30b60d9f059473e62c4"

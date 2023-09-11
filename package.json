@@ -12,6 +12,9 @@
     "prebuild": "cpx \"./index.html\" \"./public\""
   },
   "dependencies": {
+    "@bunt/assert": "^0.29.18",
+    "@bunt/is": "^0.29.18",
+    "@bunt/type": "^0.29.16",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "emotion-reset": "^3.0.1",

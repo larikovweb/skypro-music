@@ -29,6 +29,15 @@ export const SelectMulty: FC<Props> = ({ label, options }) => {
     }
   };
 
+  const uniqueOptions: ISelectOption[] = Array.from(new Set(options.map((option) => option.value)))
+    .map((value) => options.filter((option) => option.value === value)[0])
+    .sort((a, b) => {
+      if (typeof a.value === 'string' && typeof b.value === 'string') {
+        return a.value.localeCompare(b.value);
+      }
+      return (b.value as number) - (a.value as number);
+    });
+
   return (
     <Wrapper ref={ref}>
       <Btn active={selectedOptions.length > 0} onClick={() => setOpen((state) => !state)}>
@@ -37,7 +46,7 @@ export const SelectMulty: FC<Props> = ({ label, options }) => {
       {selectedOptions.length > 0 && <Counter>{selectedOptions.length}</Counter>}
       <List open={open}>
         <Scroll>
-          {options.map((option) => (
+          {uniqueOptions.map((option) => (
             <Item
               selected={selectedOptions.some((o) => o.value === option.value)}
               onClick={() => toggleSelected(option)}

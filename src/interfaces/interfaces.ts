@@ -12,3 +12,5 @@ export interface ISelectOption {
   label: string | number;
   value: string | number;
 }
+
+export type Rec<K extends keyof any = any, T = any> = Record<K, T>;

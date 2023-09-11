@@ -12,3 +12,4 @@ export const $mainBackgroundColor = '#181818';
 
 export const $primaryColor = '#B672FF';
 export const $darkColor = '#181818';
+export const $redColor = '#E01D1D';

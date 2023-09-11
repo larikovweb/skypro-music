@@ -35,14 +35,14 @@ const Wrapper = styled.div<{ openMenu: boolean }>`
     background-color: #d3d3d3;
     left: 50%;
     transition: opacity 0.3s, transform 0.3s;
-    &:nth-child(1) {
+    &:nth-of-type(1) {
       top: 0;
     }
-    &:nth-child(2) {
+    &:nth-of-type(2) {
       top: 50%;
       transform: translateY(-50%);
     }
-    &:nth-child(3) {
+    &:nth-of-type(3) {
       bottom: 0;
     }
   }
@@ -50,15 +50,15 @@ const Wrapper = styled.div<{ openMenu: boolean }>`
     openMenu &&
     css`
       /* transform: rotate(-45deg); */
-      i:nth-child(1) {
+      i:nth-of-type(1) {
         top: 50%;
         left: 50%;
         transform: rotate(45deg);
       }
-      i:nth-child(2) {
+      i:nth-of-type(2) {
         opacity: 0;
       }
-      i:nth-child(3) {
+      i:nth-of-type(3) {
         top: 50%;
         left: 50%;
         transform-origin: center center;
