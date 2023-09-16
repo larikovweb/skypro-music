@@ -4,7 +4,7 @@ import { $redColor } from '../../styled/variables';
 
 type Props = {
   children: React.ReactNode;
-  error?: string;
+  error?: string | undefined;
 };
 
 export const InputField: FC<Props> = ({ children, error }) => {
@@ -25,6 +25,7 @@ const Content = styled.div<{ error: boolean }>`
 `;
 
 const Wrap = styled.div`
+  width: 100%;
   position: relative;
   display: flex;
   flex-direction: column;

@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Layout } from './Layout';
 import { privateRoutes, publicRoutes } from './routes';
 import AuthorizationLayout from '../pages/Authorization/AuthorizationLayout';
+import NotFound from '../pages/NotFound/NotFound';
 
 const Application: FC = () => {
   return (
@@ -19,7 +20,7 @@ const Application: FC = () => {
 };
 
 const RouteSelect: FC = () => {
-  const session = true;
+  const session = false;
 
   if (session) {
     return (
@@ -29,6 +30,7 @@ const RouteSelect: FC = () => {
             <Route key={path} path={path} element={component} />
           ))}
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     );
   }
@@ -40,6 +42,7 @@ const RouteSelect: FC = () => {
           <Route key={path} path={path} element={component} />
         ))}
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

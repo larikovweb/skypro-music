@@ -11,9 +11,7 @@ const Authorization: FC = () => {
         <Logo>
           <IconLogo />
         </Logo>
-        <Form>
-          <Outlet />
-        </Form>
+        <Outlet />
       </Body>
     </Wrapper>
   );
@@ -22,10 +20,15 @@ const Authorization: FC = () => {
 export const Buttons = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
   margin-top: 2.5rem;
   > *:not(:last-child) {
     margin-bottom: 1.25rem;
   }
+`;
+
+export const Form = styled.form`
+  width: 100%;
 `;
 
 const Wrapper = styled.div`
@@ -43,10 +46,6 @@ const Body = styled.div`
   align-items: center;
   width: 22.875rem;
   padding: 2.7rem 2.5rem;
-`;
-
-const Form = styled.form`
-  width: 100%;
 `;
 
 const Logo = styled.div`

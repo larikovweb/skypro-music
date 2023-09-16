@@ -5,7 +5,6 @@ import {
   INDIE_ENERGY_ROUTE,
   MAIN_ROUTE,
   MY_PLAYLIST_ROUTE,
-  NOT_FOUND_ROUTE,
   SIGNIN_ROUTE,
   SIGNUP_ROUTE,
 } from '../utils/consts';
@@ -21,11 +20,9 @@ export const privateRoutes: RouteType[] = [
   { path: DANCE_HITS_ROUTE, component: <Pages.DanceHits100 /> },
   { path: INDIE_ENERGY_ROUTE, component: <Pages.IndieEnergy /> },
   { path: MY_PLAYLIST_ROUTE, component: <Pages.MyPlaylist /> },
-  { path: NOT_FOUND_ROUTE, component: <Pages.NotFound /> },
 ];
 
 export const publicRoutes: RouteType[] = [
   { path: SIGNIN_ROUTE, component: <Pages.SignIn /> },
   { path: SIGNUP_ROUTE, component: <Pages.SignUp /> },
-  { path: NOT_FOUND_ROUTE, component: <Pages.NotFound /> },
 ];
