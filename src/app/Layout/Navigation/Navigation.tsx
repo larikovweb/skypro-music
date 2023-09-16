@@ -1,11 +1,11 @@
 import { FC, useState } from 'react';
 import { IconLogo } from '../../../icons';
 import { MAIN_ROUTE, MY_PLAYLIST_ROUTE } from '../../../utils/consts';
-import { Link } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { rem } from '../../../styled/mixins';
 import { Burger } from './Burger';
 import { Nav } from './Nav';
+import { NavigateClick } from '../../../components/route/NavigateClick';
 
 const links = [
   {
@@ -23,9 +23,11 @@ export const Navigation: FC = () => {
 
   return (
     <Wrapper>
-      <Logo to={MAIN_ROUTE}>
-        <IconLogo />
-      </Logo>
+      <NavigateClick to={MAIN_ROUTE}>
+        <Logo>
+          <IconLogo />
+        </Logo>
+      </NavigateClick>
       <Burger setOpenMenu={setOpenMenu} openMenu={openMenu} />
       {openMenu && <Nav links={links} />}
     </Wrapper>
@@ -40,7 +42,8 @@ const Wrapper = styled.div`
   padding: 2.25rem;
 `;
 
-const Logo = styled(Link)`
+const Logo = styled.div`
+  cursor: pointer;
   display: block;
   background-color: transparent;
   margin-bottom: 2.87rem;

@@ -8,12 +8,14 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { isNull } from '@bunt/is';
 import { Sidebar } from './Sidebar/Sidebar';
+import { ScrollTop } from '../../components/route/ScrollTop';
 
 export const Layout: FC = () => {
   const activeTrackId = useSelector((state: RootState) => state.track).selectedTrackId;
 
   return (
     <>
+      <ScrollTop />
       <HelmetHead title="Общий заголовок" descr="Общее описание" />
       <Main>
         <Navigation />
