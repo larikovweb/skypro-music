@@ -4,21 +4,25 @@ import { IconTime } from '../../icons';
 import { BtnLike } from '../../components/btn/BtnLike';
 import { TrackImg } from '../../components/track/TrackImg';
 import { ITrack } from '../../interfaces/interfaces';
+import { useDispatch } from 'react-redux';
+import { setSelectedTrackId } from '../../store/reducers/trackSlice';
+import { formatDuration } from '../../fn';
 
 export const TrackRow: FC<ITrack> = (props) => {
-  const { id, name, artist, album, duration } = props;
+  const { id, name, author, album, duration_in_seconds } = props;
+  const dispatch = useDispatch();
 
   return (
     <Row>
-      <Col>
+      <Col onClick={() => dispatch(setSelectedTrackId(id))}>
         <TrackImg src="" alt={name} />
         <Name>{name}</Name>
       </Col>
-      <Col>{artist}</Col>
+      <Col>{author}</Col>
       <Col grey>{album}</Col>
       <Col grey>
         <BtnLike />
-        {duration}
+        {formatDuration(duration_in_seconds)}
       </Col>
     </Row>
   );

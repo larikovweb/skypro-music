@@ -1,11 +1,14 @@
 export interface ITrack {
-  id: string | number;
-  name: string;
-  artist: string;
   album: string;
-  duration: string;
-  year: number;
+  author: string;
+  duration_in_seconds: number;
   genre: string;
+  id: number;
+  logo: string | null;
+  name: string;
+  release_date: string;
+  stared_user: any[];
+  track_file: string;
 }
 
 export interface ISelectOption {

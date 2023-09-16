@@ -26,7 +26,8 @@ const Application: FC = () => {
 };
 
 const RouteSelect: FC = () => {
-  const auth = useSelector((state: RootState) => state.auth).isAuthenticated;
+  // const auth = useSelector((state: RootState) => state.auth).isAuthenticated;
+  const auth = true;
 
   if (auth) {
     return (

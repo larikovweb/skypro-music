@@ -7,7 +7,7 @@ import { Buttons, Form } from './AuthorizationLayout';
 import { NavigateClick } from '../../components/route/NavigateClick';
 import { SIGNUP_ROUTE } from '../../utils/consts';
 import { GeneralInput } from '../../styled/components';
-import { authAPI } from '../../services/authAPI';
+import { authAPI } from '../../services/authService';
 import { useDispatch } from 'react-redux';
 import { loginSuccess, saveAuthResult } from '../../store/reducers/authSlice';
 

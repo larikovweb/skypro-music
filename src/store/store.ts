@@ -1,21 +1,21 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { orderAPI } from '../services/OrderService';
 import auth from './reducers/authSlice';
-import { articleAPI } from '../services/ArticlesService';
-import { authAPI } from '../services/authAPI';
+import track from './reducers/trackSlice';
+import { authAPI } from '../services/authService';
+import { musicPlayerAPI } from '../services/musicPlayerService';
 
 const rootReducer = combineReducers({
-  [orderAPI.reducerPath]: orderAPI.reducer,
-  [articleAPI.reducerPath]: articleAPI.reducer,
+  [musicPlayerAPI.reducerPath]: musicPlayerAPI.reducer,
   [authAPI.reducerPath]: authAPI.reducer,
   auth: auth,
+  track: track,
 });
 
 export const setupStore = () => {
   return configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(orderAPI.middleware, articleAPI.middleware, authAPI.middleware),
+      getDefaultMiddleware().concat(musicPlayerAPI.middleware, authAPI.middleware),
   });
 };
 

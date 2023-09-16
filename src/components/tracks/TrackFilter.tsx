@@ -1,27 +1,32 @@
 import styled from '@emotion/styled';
 import { FC } from 'react';
 import { SelectMulty } from '../select/SelectMulty';
-import { ITrack } from '../../interfaces/interfaces';
+import { isUndefined } from '@bunt/is';
+import { musicPlayerAPI } from '../../services/musicPlayerService';
 
-type Props = {
-  data: ITrack[];
-};
+export const TrackFilter: FC = () => {
+  const { data } = musicPlayerAPI.useGetAllTracksQuery();
 
-export const TrackFilter: FC<Props> = ({ data }) => {
-  const artistOptions = data.map((track) => ({
-    label: track.artist,
-    value: track.artist.split(' ').join('').toLowerCase(),
-  }));
+  const artistOptions = !isUndefined(data)
+    ? data.map((track) => ({
+        label: track.author,
+        value: track.author.split(' ').join('').toLowerCase(),
+      }))
+    : [];
 
-  const yearOptions = data.map((track) => ({
-    label: track.year,
-    value: track.year,
-  }));
+  const yearOptions = !isUndefined(data)
+    ? data.map((track) => ({
+        label: new Date(track.release_date).getFullYear(),
+        value: new Date(track.release_date).getFullYear(),
+      }))
+    : [];
 
-  const genreOptions = data.map((track) => ({
-    label: track.genre,
-    value: track.genre.split(' ').join('').toLowerCase(),
-  }));
+  const genreOptions = !isUndefined(data)
+    ? data.map((track) => ({
+        label: track.genre,
+        value: track.genre.split(' ').join('').toLowerCase(),
+      }))
+    : [];
 
   return (
     <Wrapper>

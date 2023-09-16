@@ -7,7 +7,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Nullable } from '@bunt/type';
 import { GeneralInput } from '../../styled/components';
 import { NavigateClick } from '../../components/route/NavigateClick';
-import { authAPI } from '../../services/authAPI';
+import { authAPI } from '../../services/authService';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../store/reducers/authSlice';
 import { redirect } from 'react-router-dom';

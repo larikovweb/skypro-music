@@ -4,15 +4,20 @@ import { Outlet } from 'react-router-dom';
 import { HelmetHead } from '../../components/HelmetHead';
 import { Navigation } from './Navigation/Navigation';
 import { Player } from './Player/Player';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+import { isNull } from '@bunt/is';
 
 export const Layout: FC = () => {
+  const activeTrackId = useSelector((state: RootState) => state.track).selectedTrackId;
+
   return (
     <>
       <HelmetHead title="Общий заголовок" descr="Общее описание" />
       <Main>
         <Navigation />
         <Outlet />
-        <Player />
+        {!isNull(activeTrackId) && <Player activeTrackId={activeTrackId} />}
       </Main>
     </>
   );

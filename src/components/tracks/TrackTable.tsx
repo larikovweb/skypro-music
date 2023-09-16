@@ -1,36 +1,21 @@
 import styled from '@emotion/styled';
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { TrackRow, TrackRowSort } from './TrackRow';
-import { ITrack } from '../../interfaces/interfaces';
 import { TrackSkeleton } from '../../components/skeletons/TrackSkeleton';
+import { musicPlayerAPI } from '../../services/musicPlayerService';
 
-type Props = {
-  data: ITrack[];
-};
+export const TrackTable: FC = () => {
+  const { data: tracks, isLoading, isError } = musicPlayerAPI.useGetAllTracksQuery();
 
-export const TrackTable: FC<Props> = ({ data }) => {
-  const [tracks, setTracks] = useState<ITrack[]>([]);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setTracks(data);
-    }, 5000);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  });
-
-  const loading =
-    tracks.length === 0 && [...new Array(20)].map((_, i) => <TrackSkeleton key={i} />);
-
-  const content =
-    tracks.length > 0 && tracks.map((track) => <TrackRow key={track.id} {...track} />);
+  const loading = isLoading && [...new Array(20)].map((_, i) => <TrackSkeleton key={i} />);
+  const errorMessage = isError && <p>Ошибка загрузки</p>;
+  const content = tracks && tracks.map((track) => <TrackRow key={track.id} {...track} />);
 
   return (
     <Wrapper>
       <TrackRowSort />
       {loading}
+      {errorMessage}
       {content}
     </Wrapper>
   );
