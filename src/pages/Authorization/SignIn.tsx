@@ -21,7 +21,17 @@ const SignIn: FC = () => {
   } = useForm<SignInFormData>();
 
   const onSubmit = (data: SignInFormData) => {
-    console.log(data); // Handle form submission here
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const { email, password } = JSON.parse(storedUser);
+      if (email === data.email && password === data.password) {
+        console.log(true);
+      } else {
+        console.log(false);
+      }
+    } else {
+      console.log(false);
+    }
   };
 
   return (

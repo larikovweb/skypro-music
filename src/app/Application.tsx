@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { GlobalStyles } from '../styled/GlobalStyles';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from './Layout';
 import { privateRoutes, publicRoutes } from './routes';
 import AuthorizationLayout from '../pages/Authorization/AuthorizationLayout';
@@ -20,7 +20,7 @@ const Application: FC = () => {
 };
 
 const RouteSelect: FC = () => {
-  const session = false;
+  const session = true;
 
   if (session) {
     return (
@@ -42,7 +42,7 @@ const RouteSelect: FC = () => {
           <Route key={path} path={path} element={component} />
         ))}
       </Route>
-      <Route path="*" element={<NotFound />} />
+      <Route path="/*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 };

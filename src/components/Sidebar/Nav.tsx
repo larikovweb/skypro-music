@@ -5,22 +5,24 @@ import { Link } from 'react-router-dom';
 import { rem } from '../../styled/mixins';
 import { IconSdebar1, IconSdebar2, IconSdebar3 } from '../../icons';
 import { NavigateClick } from '../route/NavigateClick';
-import { DAILY_PLAYLIST_ROUTE, DANCE_HITS_ROUTE, INDIE_ENERGY_ROUTE } from '../../utils/consts';
+import {
+  CATEGORY_ROUTE,
+  DAILY_PLAYLIST_ROUTE,
+  DANCE_HITS_ROUTE,
+  INDIE_ENERGY_ROUTE,
+} from '../../utils/consts';
 
 const links = [
   {
     label: 'Плейлист дня',
-    path: DAILY_PLAYLIST_ROUTE,
     icon: <IconSdebar1 />,
   },
   {
     label: '100 танцевальных хитов',
-    path: DANCE_HITS_ROUTE,
     icon: <IconSdebar2 />,
   },
   {
     label: 'Инди-заряд',
-    path: INDIE_ENERGY_ROUTE,
     icon: <IconSdebar3 />,
   },
 ];
@@ -28,8 +30,8 @@ const links = [
 export const Nav: FC = () => {
   return (
     <List>
-      {links.map(({ label, path, icon }, i) => (
-        <NavigateClick key={i} to={path}>
+      {links.map(({ label, icon }, i) => (
+        <NavigateClick key={i} to={`${CATEGORY_ROUTE}/${i + 1}`}>
           <Item>
             {icon}
             <Label>{label}</Label>

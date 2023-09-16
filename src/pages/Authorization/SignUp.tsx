@@ -24,8 +24,9 @@ const SignUp: FC = () => {
     email: string;
     password: string;
     confirmPassword: string;
-  }> = ({ email }) => {
-    localStorage.setItem('user', email);
+  }> = ({ email, password }) => {
+    const user = { email, password };
+    localStorage.setItem('user', JSON.stringify(user));
   };
 
   return (

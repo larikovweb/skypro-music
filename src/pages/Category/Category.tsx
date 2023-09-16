@@ -5,16 +5,16 @@ import { TrackTable } from '../../components/tracks/TrackTable';
 import { fakeTracks } from '../../data/fake';
 import { Body, Title, Wrapper } from '../styled';
 
-const DailyPlaylist: FC = () => {
+const Category: FC = () => {
   return (
     <Wrapper>
-      <HelmetHead title="100 танцевальных хитов" descr="100 танцевальных хитов" />
+      <HelmetHead title="Плейлист дня" descr="Плейлист дня" />
       <Body>
-        <Title>100 танцевальных хитов</Title>
+        <Title>Плейлист дня</Title>
         <TrackTable data={fakeTracks} />
       </Body>
     </Wrapper>
   );
 };
 
-export default DailyPlaylist;
+export default Category;
