@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { FC } from 'react';
 import { IconTime } from '../../icons';
 import { BtnLike } from '../../components/btn/BtnLike';
-import { TrackImg } from '../../components/track/TrackImg';
+import { TrackImg } from './TrackImg';
 import { ITrack } from '../../interfaces/interfaces';
 import { useDispatch } from 'react-redux';
 import { setSelectedTrackId } from '../../store/reducers/trackSlice';

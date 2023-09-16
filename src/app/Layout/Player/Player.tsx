@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef, useState } from 'react';
 import { IconNext, IconPause, IconPlay, IconRepeat, IconShuffle } from '../../../icons';
-import { TrackImg } from '../../../components/track/TrackImg';
+import { TrackImg } from '../../../components/tracks/TrackImg';
 import { BtnLike } from '../../../components/btn/BtnLike';
 import styled from '@emotion/styled';
 import { PlayerSkeleton } from '../../../components/skeletons/PlayerSkeleton';
@@ -120,6 +120,7 @@ const Progress = styled.div`
   height: 0.3125rem;
   transform: translateY(-100%);
   background: ${$primaryColor};
+  transition: width 0.3s linear;
 `;
 
 const Prev = styled.div`
