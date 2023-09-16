@@ -1,18 +1,11 @@
 import { FC } from 'react';
 import styled from '@emotion/styled';
-
-import { Link } from 'react-router-dom';
-import { rem } from '../../styled/mixins';
-import { IconSdebar1, IconSdebar2, IconSdebar3 } from '../../icons';
-import { NavigateClick } from '../route/NavigateClick';
-import {
-  CATEGORY_ROUTE,
-  DAILY_PLAYLIST_ROUTE,
-  DANCE_HITS_ROUTE,
-  INDIE_ENERGY_ROUTE,
-} from '../../utils/consts';
-import { musicPlayerAPI } from '../../services/musicPlayerService';
-import { CategorySkeleton } from '../skeletons/styled';
+import { IconSdebar1, IconSdebar2, IconSdebar3 } from '../../../icons';
+import { musicPlayerAPI } from '../../../services/musicPlayerService';
+import { CategorySkeleton } from '../../../components/skeletons/styled';
+import { NavigateClick } from '../../../components/route/NavigateClick';
+import { CATEGORY_ROUTE } from '../../../utils/consts';
+import { rem } from '../../../styled/mixins';
 
 const links = [
   {

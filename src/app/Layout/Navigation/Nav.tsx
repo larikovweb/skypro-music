@@ -2,12 +2,16 @@ import { FC } from 'react';
 import styled from '@emotion/styled';
 import { rem } from '../../../styled/mixins';
 import { Link, NavLink } from 'react-router-dom';
+import { logout } from '../../../store/reducers/authSlice';
+import { useDispatch } from 'react-redux';
 
 type Props = {
   links: { label: string; path: string }[];
 };
 
 export const Nav: FC<Props> = ({ links }) => {
+  const dispatch = useDispatch();
+
   return (
     <Wrapper>
       {links.map(({ label, path }) => (
@@ -15,7 +19,9 @@ export const Nav: FC<Props> = ({ links }) => {
           {label}
         </NavLink>
       ))}
-      <Link to="/">Войти</Link>
+      <Link onClick={() => dispatch(logout())} to="/">
+        Выйти
+      </Link>
     </Wrapper>
   );
 };

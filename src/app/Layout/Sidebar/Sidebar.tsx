@@ -1,22 +1,22 @@
 import { FC } from 'react';
 import styled from '@emotion/styled';
 import { Nav } from './Nav';
-import { IconLogout } from '../../icons';
-import { rem } from '../../styled/mixins';
-import { logout } from '../../store/reducers/authSlice';
-import { useDispatch } from 'react-redux';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { IconLogout } from '../../../icons';
+import { logout } from '../../../store/reducers/authSlice';
+import { rem } from '../../../styled/mixins';
+import { RootState } from '../../../store/store';
 
 export const Sidebar: FC = () => {
   const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.auth).authResult;
 
   return (
     <Wrapper>
       <Logout>
-        <Name>Sergey.Ivanov</Name>
-        <LogoutBtn
-          onClick={() => {
-            dispatch(logout());
-          }}>
+        <Name>{user?.username}</Name>
+        <LogoutBtn onClick={() => dispatch(logout())}>
           <IconLogout />
         </LogoutBtn>
       </Logout>
