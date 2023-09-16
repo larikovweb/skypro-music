@@ -3,13 +3,20 @@ import styled from '@emotion/styled';
 import { Nav } from './Nav';
 import { IconLogout } from '../../icons';
 import { rem } from '../../styled/mixins';
+import { logout } from '../../store/reducers/authSlice';
+import { useDispatch } from 'react-redux';
 
 export const Sidebar: FC = () => {
+  const dispatch = useDispatch();
+
   return (
     <Wrapper>
       <Logout>
         <Name>Sergey.Ivanov</Name>
-        <LogoutBtn>
+        <LogoutBtn
+          onClick={() => {
+            dispatch(logout());
+          }}>
           <IconLogout />
         </LogoutBtn>
       </Logout>

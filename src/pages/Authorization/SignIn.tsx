@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import { InputField } from '../../components/fields/InputField';
@@ -7,6 +7,9 @@ import { Buttons, Form } from './AuthorizationLayout';
 import { NavigateClick } from '../../components/route/NavigateClick';
 import { SIGNUP_ROUTE } from '../../utils/consts';
 import { GeneralInput } from '../../styled/components';
+import { authAPI } from '../../services/authAPI';
+import { useDispatch } from 'react-redux';
+import { loginSuccess, saveAuthResult } from '../../store/reducers/authSlice';
 
 type SignInFormData = {
   email: string;
@@ -20,23 +23,29 @@ const SignIn: FC = () => {
     formState: { errors },
   } = useForm<SignInFormData>();
 
-  const onSubmit = (data: SignInFormData) => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      const { email, password } = JSON.parse(storedUser);
-      if (email === data.email && password === data.password) {
-        console.log(true);
+  const [generalError, setGeneralError] = useState('');
+
+  const [login, { isLoading }] = authAPI.useLoginMutation();
+  const dispatch = useDispatch();
+
+  const onSubmit = async (data: SignInFormData) => {
+    try {
+      const result = await login(data);
+
+      if ('data' in result) {
+        dispatch(saveAuthResult(result.data));
+        dispatch(loginSuccess());
       } else {
-        console.log(false);
+        setGeneralError('Неверные учетные данные');
       }
-    } else {
-      console.log(false);
+    } catch (error) {
+      console.log('Ошибка при входе:', error);
     }
   };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <InputField error={errors.email?.message}>
+      <InputField error={errors.email?.message || generalError}>
         <GeneralInput
           type="email"
           placeholder="Почта"
@@ -63,9 +72,13 @@ const SignIn: FC = () => {
         />
       </InputField>
       <Buttons>
-        <Button type="submit">Войти</Button>
+        <Button pending={isLoading} type="submit">
+          Войти
+        </Button>
         <NavigateClick to={SIGNUP_ROUTE}>
-          <Button transparent>Зарегистрироваться</Button>
+          <Button pending={isLoading} transparent>
+            Зарегистрироваться
+          </Button>
         </NavigateClick>
       </Buttons>
     </Form>

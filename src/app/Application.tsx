@@ -5,24 +5,30 @@ import { Layout } from './Layout';
 import { privateRoutes, publicRoutes } from './routes';
 import AuthorizationLayout from '../pages/Authorization/AuthorizationLayout';
 import NotFound from '../pages/NotFound/NotFound';
+import { Provider, useSelector } from 'react-redux';
+import { RootState, setupStore } from '../store/store';
 
 const Application: FC = () => {
+  const store = setupStore();
+
   return (
     <>
       <GlobalStyles />
-      <BrowserRouter>
-        <Routes>
-          <Route path="*" element={<RouteSelect />} />
-        </Routes>
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="*" element={<RouteSelect />} />
+          </Routes>
+        </BrowserRouter>
+      </Provider>
     </>
   );
 };
 
 const RouteSelect: FC = () => {
-  const session = true;
+  const auth = useSelector((state: RootState) => state.auth).isAuthenticated;
 
-  if (session) {
+  if (auth) {
     return (
       <Routes>
         <Route element={<Layout />}>

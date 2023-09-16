@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 
 import { InputField } from '../../components/fields/InputField';
 import { Buttons, Form } from './AuthorizationLayout';
@@ -7,6 +7,17 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Nullable } from '@bunt/type';
 import { GeneralInput } from '../../styled/components';
 import { NavigateClick } from '../../components/route/NavigateClick';
+import { authAPI } from '../../services/authAPI';
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../../store/reducers/authSlice';
+import { redirect } from 'react-router-dom';
+import { MAIN_ROUTE } from '../../utils/consts';
+
+type SignUpFormData = {
+  email: string;
+  password: string;
+  confirmPassword: string;
+};
 
 const SignUp: FC = () => {
   const {
@@ -14,24 +25,38 @@ const SignUp: FC = () => {
     handleSubmit,
     formState: { errors },
     getValues,
-  } = useForm<{ email: string; password: string; confirmPassword: string }>();
+  } = useForm<SignUpFormData>();
+
+  const [generalError, setGeneralError] = useState('');
+
+  const [registerUser, { isLoading }] = authAPI.useRegisterMutation();
+  const dispatch = useDispatch();
 
   function createPasswordValidate(a: () => Nullable<string>): (b: string) => boolean | string {
     return (b) => (a() === b ? true : 'Подтверждение пароля не совпадает');
   }
 
-  const onSubmit: SubmitHandler<{
-    email: string;
-    password: string;
-    confirmPassword: string;
-  }> = ({ email, password }) => {
-    const user = { email, password };
-    localStorage.setItem('user', JSON.stringify(user));
+  const onSubmit = async (data: SignUpFormData) => {
+    try {
+      const result = await registerUser({
+        email: data.email,
+        password: data.password,
+        username: data.email,
+      });
+      if ('data' in result) {
+        dispatch(loginSuccess());
+        redirect(MAIN_ROUTE);
+      } else {
+        setGeneralError('Неверные учетные данные');
+      }
+    } catch (error) {
+      console.log('Ошибка при входе:', error);
+    }
   };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <InputField error={errors.email?.message}>
+      <InputField error={errors.email?.message || generalError}>
         <GeneralInput
           placeholder="Почта"
           {...register('email', {
@@ -69,7 +94,9 @@ const SignUp: FC = () => {
       </InputField>
 
       <Buttons>
-        <Button type="submit">Зарегистрироваться</Button>
+        <Button pending={isLoading} type="submit">
+          Зарегистрироваться
+        </Button>
         <NavigateClick to="/">
           <Button transparent>Назад</Button>
         </NavigateClick>
