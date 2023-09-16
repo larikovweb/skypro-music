@@ -11,6 +11,8 @@ import {
   DANCE_HITS_ROUTE,
   INDIE_ENERGY_ROUTE,
 } from '../../utils/consts';
+import { musicPlayerAPI } from '../../services/musicPlayerService';
+import { CategorySkeleton } from '../skeletons/styled';
 
 const links = [
   {
@@ -28,17 +30,30 @@ const links = [
 ];
 
 export const Nav: FC = () => {
+  const { data, isLoading, isError } = musicPlayerAPI.useGetSelectionsQuery();
+
+  const loading = isLoading && [...new Array(3)].map((_, i) => <CategorySkeleton key={i} />);
+  const errorMessage = isError && <p>Ошибка загрузки</p>;
+  const content =
+    data && data.map((category) => <CategoryLink key={category.id} id={category.id} />);
+
   return (
     <List>
-      {links.map(({ label, icon }, i) => (
-        <NavigateClick key={i} to={`${CATEGORY_ROUTE}/${i + 1}`}>
-          <Item>
-            {icon}
-            <Label>{label}</Label>
-          </Item>
-        </NavigateClick>
-      ))}
+      {loading}
+      {errorMessage}
+      {content}
     </List>
+  );
+};
+
+const CategoryLink: FC<{ id: number }> = ({ id }) => {
+  return (
+    <NavigateClick to={`${CATEGORY_ROUTE}/${id}`}>
+      <Item>
+        {links[id - 1].icon}
+        <Label>{links[id - 1].label}</Label>
+      </Item>
+    </NavigateClick>
   );
 };
 
@@ -49,6 +64,9 @@ const List = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   padding-bottom: 4.6rem;
+  > *:not(:last-child) {
+    margin-bottom: ${rem(30)};
+  }
 `;
 
 const Item = styled.div`
@@ -60,9 +78,6 @@ const Item = styled.div`
   width: ${rem(250)};
   height: ${rem(150)};
   transition: opacity 0.3s;
-  &:not(:last-child) {
-    margin-bottom: ${rem(30)};
-  }
   svg {
     position: absolute;
     top: 0;

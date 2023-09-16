@@ -2,13 +2,18 @@ import styled from '@emotion/styled';
 import { FC } from 'react';
 import { TrackRow, TrackRowSort } from './TrackRow';
 import { TrackSkeleton } from '../../components/skeletons/TrackSkeleton';
-import { musicPlayerAPI } from '../../services/musicPlayerService';
+import { ITrack } from '../../interfaces/interfaces';
+import { isUndefined } from '@bunt/is';
 
-export const TrackTable: FC = () => {
-  const { data: tracks, isLoading, isError } = musicPlayerAPI.useGetAllTracksQuery();
+type Props = {
+  tracks: ITrack[] | undefined;
+  isLoading: boolean;
+  isError: boolean;
+};
 
+export const TrackTable: FC<Props> = ({ tracks, isLoading, isError }) => {
   const loading = isLoading && [...new Array(20)].map((_, i) => <TrackSkeleton key={i} />);
-  const errorMessage = isError && <p>Ошибка загрузки</p>;
+  const errorMessage = isError || (isUndefined(tracks) && <p>Ошибка загрузки</p>);
   const content = tracks && tracks.map((track) => <TrackRow key={track.id} {...track} />);
 
   return (

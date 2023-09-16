@@ -2,11 +2,9 @@ import styled from '@emotion/styled';
 import { FC } from 'react';
 import { SelectMulty } from '../select/SelectMulty';
 import { isUndefined } from '@bunt/is';
-import { musicPlayerAPI } from '../../services/musicPlayerService';
+import { ITrack } from '../../interfaces/interfaces';
 
-export const TrackFilter: FC = () => {
-  const { data } = musicPlayerAPI.useGetAllTracksQuery();
-
+export const TrackFilter: FC<{ data: ITrack[] | undefined }> = ({ data }) => {
   const artistOptions = !isUndefined(data)
     ? data.map((track) => ({
         label: track.author,
