@@ -21,7 +21,7 @@ export const TrackRow: FC<ITrack> = (props) => {
       <Col>{author}</Col>
       <Col grey>{album}</Col>
       <Col grey>
-        <BtnLike />
+        <BtnLike id={id} />
         {formatDuration(duration_in_seconds)}
       </Col>
     </Row>

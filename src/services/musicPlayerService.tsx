@@ -33,34 +33,36 @@ export const musicPlayerAPI = createApi({
       }),
     }),
 
-    addToFavorites: build.mutation<ITrack, number>({
-      query: (id) => ({
+    addToFavorites: build.mutation<ITrack, { id: number; accessToken: string }>({
+      query: ({ id, accessToken }) => ({
         url: `/catalog/track/${id}/favorite/`,
         method: 'POST',
         headers: {
-          Authorization: `Bearer <accessToken>`, // Здесь нужно подставить актуальный access токен
+          Authorization: `Bearer ${accessToken}`,
         },
       }),
     }),
 
-    removeFromFavorites: build.mutation<ITrack, number>({
-      query: (id) => ({
+    removeFromFavorites: build.mutation<ITrack, { id: number; accessToken: string }>({
+      query: ({ id, accessToken }) => ({
         url: `/catalog/track/${id}/favorite/`,
         method: 'DELETE',
         headers: {
-          Authorization: `Bearer <accessToken>`, // Здесь нужно подставить актуальный access токен
+          Authorization: `Bearer ${accessToken}`,
         },
       }),
     }),
 
-    getAllFavoriteTracks: build.query<ITrack[], void>({
-      query: () => ({
-        url: '/catalog/track/favorite/all/',
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer <accessToken>`, // Здесь нужно подставить актуальный access токен
-        },
-      }),
+    getAllFavoriteTracks: build.query<ITrack[], { accessToken: string | undefined }>({
+      query: ({ accessToken }) => {
+        return {
+          url: '/catalog/track/favorite/all/',
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        };
+      },
     }),
   }),
 });

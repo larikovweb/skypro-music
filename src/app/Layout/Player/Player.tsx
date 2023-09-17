@@ -36,7 +36,7 @@ export const Player: FC<{ activeTrackId: number }> = ({ activeTrackId }) => {
         <b>{track.name}</b>
         <span>{track.author}</span>
       </TrackName>
-      <BtnLike />
+      <BtnLike id={track.id} />
     </>
   );
 
