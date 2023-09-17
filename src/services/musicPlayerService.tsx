@@ -19,21 +19,21 @@ export const musicPlayerAPI = createApi({
       }),
     }),
 
-    getSelections: build.query<any[], void>({
+    getSelections: build.query<ITrack[], void>({
       query: () => ({
         url: '/catalog/selection/',
         method: 'GET',
       }),
     }),
 
-    getSelectionById: build.query<any, number>({
+    getSelectionById: build.query<ITrack, number>({
       query: (id) => ({
         url: `/catalog/selection/${id}/`,
         method: 'GET',
       }),
     }),
 
-    addToFavorites: build.mutation<any, number>({
+    addToFavorites: build.mutation<ITrack, number>({
       query: (id) => ({
         url: `/catalog/track/${id}/favorite/`,
         method: 'POST',
@@ -43,7 +43,7 @@ export const musicPlayerAPI = createApi({
       }),
     }),
 
-    removeFromFavorites: build.mutation<any, number>({
+    removeFromFavorites: build.mutation<ITrack, number>({
       query: (id) => ({
         url: `/catalog/track/${id}/favorite/`,
         method: 'DELETE',
@@ -53,7 +53,7 @@ export const musicPlayerAPI = createApi({
       }),
     }),
 
-    getAllFavoriteTracks: build.query<any[], void>({
+    getAllFavoriteTracks: build.query<ITrack[], void>({
       query: () => ({
         url: '/catalog/track/favorite/all/',
         method: 'GET',
