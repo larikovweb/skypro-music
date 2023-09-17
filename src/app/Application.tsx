@@ -7,6 +7,7 @@ import AuthorizationLayout from '../pages/Authorization/AuthorizationLayout';
 import NotFound from '../pages/NotFound/NotFound';
 import { Provider, useSelector } from 'react-redux';
 import { RootState, setupStore } from '../store/store';
+import { isNull } from '@bunt/is';
 
 const Application: FC = () => {
   const store = setupStore();
@@ -26,9 +27,9 @@ const Application: FC = () => {
 };
 
 const RouteSelect: FC = () => {
-  const auth = useSelector((state: RootState) => state.auth).isAuthenticated;
+  const isAuthenticated = !isNull(useSelector((state: RootState) => state.auth.authResult));
 
-  if (auth) {
+  if (isAuthenticated) {
     return (
       <Routes>
         <Route element={<Layout />}>

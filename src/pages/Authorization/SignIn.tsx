@@ -9,7 +9,7 @@ import { SIGNUP_ROUTE } from '../../utils/consts';
 import { GeneralInput } from '../../styled/components';
 import { authAPI } from '../../services/authService';
 import { useDispatch } from 'react-redux';
-import { loginSuccess, saveAuthResult } from '../../store/reducers/authSlice';
+import { saveAuthResult } from '../../store/reducers/authSlice';
 
 type SignInFormData = {
   email: string;
@@ -26,15 +26,16 @@ const SignIn: FC = () => {
   const [generalError, setGeneralError] = useState('');
 
   const [login, { isLoading }] = authAPI.useLoginMutation();
+  const [getToken] = authAPI.useGetTokenMutation();
   const dispatch = useDispatch();
 
   const onSubmit = async (data: SignInFormData) => {
     try {
-      const result = await login(data);
+      const result = await login({ email: data.email, password: data.password });
+      const tokenResult = await getToken({ email: data.email, password: data.password });
 
-      if ('data' in result) {
-        dispatch(saveAuthResult(result.data));
-        dispatch(loginSuccess());
+      if ('data' in result && 'data' in tokenResult) {
+        dispatch(saveAuthResult({ ...result.data, ...tokenResult.data }));
       } else {
         setGeneralError('Неверные учетные данные');
       }

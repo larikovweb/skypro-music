@@ -26,6 +26,8 @@ export interface IAuthResult {
   id: number;
   last_name: string;
   username: string;
+  access_token: string;
+  refresh_token: string;
 }
 
 export interface ICity {
