@@ -18,9 +18,6 @@ export const TrackTable: FC<Props> = ({ tracks, isLoading, isError }) => {
   const selectedYears = useSelector((state: RootState) => state.track.selectedYears);
   const selectedGenres = useSelector((state: RootState) => state.track.selectedGenres);
 
-  console.log(selectedArtists);
-  console.log(tracks);
-
   const filteredTracks = tracks?.filter((track) => {
     const artistMatch =
       selectedArtists.length === 0 ||
