@@ -6,6 +6,7 @@ interface TrackState {
   selectedArtists: ISelectOption[];
   selectedYears: ISelectOption[];
   selectedGenres: ISelectOption[];
+  searchQuery: string;
 }
 
 const initialState: TrackState = {
@@ -13,6 +14,7 @@ const initialState: TrackState = {
   selectedArtists: [],
   selectedYears: [],
   selectedGenres: [],
+  searchQuery: '',
 };
 
 const trackSlice = createSlice({
@@ -31,10 +33,18 @@ const trackSlice = createSlice({
     setSelectedGenres: (state, action: PayloadAction<ISelectOption[]>) => {
       state.selectedGenres = action.payload;
     },
+    setSearchQuery: (state, action: PayloadAction<string>) => {
+      state.searchQuery = action.payload;
+    },
   },
 });
 
-export const { setSelectedTrackId, setSelectedArtists, setSelectedYears, setSelectedGenres } =
-  trackSlice.actions;
+export const {
+  setSelectedTrackId,
+  setSelectedArtists,
+  setSelectedYears,
+  setSelectedGenres,
+  setSearchQuery,
+} = trackSlice.actions;
 
 export default trackSlice.reducer;

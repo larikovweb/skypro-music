@@ -26,7 +26,7 @@ export const musicPlayerAPI = createApi({
       }),
     }),
 
-    getSelectionById: build.query<ITrack, number>({
+    getSelectionById: build.query<any, number>({
       query: (id) => ({
         url: `/catalog/selection/${id}/`,
         method: 'GET',

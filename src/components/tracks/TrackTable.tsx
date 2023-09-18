@@ -17,6 +17,7 @@ export const TrackTable: FC<Props> = ({ tracks, isLoading, isError }) => {
   const selectedArtists = useSelector((state: RootState) => state.track.selectedArtists);
   const selectedYears = useSelector((state: RootState) => state.track.selectedYears);
   const selectedGenres = useSelector((state: RootState) => state.track.selectedGenres);
+  const searchQuery = useSelector((state: RootState) => state.track.searchQuery);
 
   const filteredTracks = tracks?.filter((track) => {
     const artistMatch =
@@ -30,7 +31,10 @@ export const TrackTable: FC<Props> = ({ tracks, isLoading, isError }) => {
     const genreMatch =
       selectedGenres.length === 0 ||
       selectedGenres.some((genre) => genre.value === track.genre.split(' ').join('').toLowerCase());
-    return artistMatch && yearMatch && genreMatch;
+    const titleMatch = track.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const artistSearchMatch = track.author.toLowerCase().includes(searchQuery.toLowerCase());
+
+    return artistMatch && yearMatch && genreMatch && (titleMatch || artistSearchMatch);
   });
 
   const loading = isLoading && [...new Array(20)].map((_, i) => <TrackSkeleton key={i} />);

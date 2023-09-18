@@ -1,12 +1,20 @@
 import { FC } from 'react';
 import { IconSearch } from '../../icons';
 import styled from '@emotion/styled';
+import { useDispatch } from 'react-redux';
+import { setSearchQuery } from '../../store/reducers/trackSlice';
 
 export const InputSearch: FC = () => {
+  const dispatch = useDispatch();
+
+  const handleSearchQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSearchQuery(event.target.value));
+  };
+
   return (
     <Wrapper>
       <IconSearch />
-      <Input placeholder="Поиск" />
+      <Input onChange={handleSearchQueryChange} placeholder="Поиск" />
     </Wrapper>
   );
 };
