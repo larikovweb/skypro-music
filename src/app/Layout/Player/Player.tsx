@@ -9,6 +9,7 @@ import { $primaryColor } from '../../../styled/variables';
 
 export const Player: FC<{ activeTrackId: number }> = ({ activeTrackId }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const progressRef = useRef<HTMLDivElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [progress, setProgress] = useState(0);
   const [isRepeat, setIsRepeat] = useState(false);
@@ -76,9 +77,26 @@ export const Player: FC<{ activeTrackId: number }> = ({ activeTrackId }) => {
     }
   };
 
+  const handleSeek = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if (progressRef.current) {
+      const progressBar = progressRef.current;
+      const { left, width } = progressBar.getBoundingClientRect();
+      const clickX = event.clientX - left;
+      const progressPercentage = (clickX / width) * 100;
+
+      if (audioRef.current) {
+        const duration = audioRef.current.duration;
+        const seekTime = (duration * progressPercentage) / 100;
+        audioRef.current.currentTime = seekTime;
+      }
+    }
+  };
+
   return (
     <Wrapper>
-      <Progress style={{ width: `${progress}%` }} />
+      <Progress ref={progressRef} onClick={handleSeek}>
+        <ActiveProgress style={{ width: `${progress}%` }} />
+      </Progress>
       <Prev>
         <IconNext />
       </Prev>
@@ -108,7 +126,6 @@ const Wrapper = styled.div`
   bottom: 0;
   left: 0;
   width: 100%;
-  border-top: 0.3125rem solid #2e2e2e;
   padding: 0.72rem 2.25rem 0.62rem;
   background: #181818;
 `;
@@ -118,7 +135,13 @@ const Progress = styled.div`
   top: 0;
   left: 0;
   height: 0.3125rem;
+  width: 100%;
+  background-color: #2e2e2e;
   transform: translateY(-100%);
+`;
+
+const ActiveProgress = styled.div`
+  height: 0.3125rem;
   background: ${$primaryColor};
   transition: width 0.3s linear;
 `;
