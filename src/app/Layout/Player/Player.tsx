@@ -6,18 +6,35 @@ import styled from '@emotion/styled';
 import { PlayerSkeleton } from '../../../components/skeletons/PlayerSkeleton';
 import { musicPlayerAPI } from '../../../services/musicPlayerService';
 import { $primaryColor } from '../../../styled/variables';
+import { RootState } from '../../../store/store';
+import { useSelector } from 'react-redux';
+import { selectFilteredTracks } from '../../../store/reducers/trackSlice';
+import { isUndefined } from '@bunt/is';
+import { formatDuration, formatTime } from '../../../fn';
 
 export const Player: FC<{ activeTrackId: number }> = ({ activeTrackId }) => {
+  const [trackId, setTrackId] = useState(activeTrackId);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const progressRef = useRef<HTMLDivElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(true);
+  const [isShuffle, setIsShuffle] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
   const [isRepeat, setIsRepeat] = useState(false);
 
-  const { data: track, isLoading, isError } = musicPlayerAPI.useGetTrackByIdQuery(activeTrackId);
+  const { data: tracks, isLoading, isError } = musicPlayerAPI.useGetAllTracksQuery();
+  const filteredTracks = useSelector((state: RootState) => selectFilteredTracks(state)(tracks));
+
+  const { data: track } = musicPlayerAPI.useGetTrackByIdQuery(trackId);
+  const totalTracks = isUndefined(filteredTracks) ? 0 : filteredTracks.length;
+
+  useEffect(() => {
+    setTrackId(activeTrackId);
+  }, [activeTrackId]);
 
   useEffect(() => {
     setIsPlaying(true);
+
     if (audioRef.current) {
       audioRef.current.addEventListener('timeupdate', handleTimeUpdate);
     }
@@ -58,6 +75,10 @@ export const Player: FC<{ activeTrackId: number }> = ({ activeTrackId }) => {
       const duration = audioRef.current.duration;
       const progress = (currentTime / duration) * 100;
       setProgress(progress);
+      setCurrentTime(currentTime);
+      if (currentTime >= duration) {
+        handleNextTrack();
+      }
     }
   };
 
@@ -92,22 +113,47 @@ export const Player: FC<{ activeTrackId: number }> = ({ activeTrackId }) => {
     }
   };
 
+  const handlePrevTrack = () => {
+    if (!isUndefined(filteredTracks)) {
+      const currentIndex = filteredTracks.findIndex((track) => track.id === trackId);
+      const prevIndex = (currentIndex - 1 + totalTracks) % totalTracks;
+      const prevTrack = filteredTracks[prevIndex];
+      setTrackId(prevTrack.id);
+    }
+  };
+
+  const handleNextTrack = () => {
+    if (!isUndefined(filteredTracks)) {
+      let nextIndex;
+
+      if (isShuffle) {
+        nextIndex = Math.floor(Math.random() * totalTracks);
+      } else {
+        const currentIndex = filteredTracks.findIndex((track) => track.id === trackId);
+        nextIndex = (currentIndex + 1) % totalTracks;
+      }
+
+      const nextTrack = filteredTracks[nextIndex];
+      setTrackId(nextTrack.id);
+    }
+  };
+
   return (
     <Wrapper>
       <Progress ref={progressRef} onClick={handleSeek}>
         <ActiveProgress style={{ width: `${progress}%` }} />
       </Progress>
-      <Prev>
+      <Prev onClick={handlePrevTrack}>
         <IconNext />
       </Prev>
       <Play onClick={handlePlayPause}>{isPlaying ? <IconPause /> : <IconPlay />}</Play>
-      <Next>
+      <Next onClick={handleNextTrack}>
         <IconNext />
       </Next>
       <Repeat $active={isRepeat} onClick={handleRepeatToggle}>
         <IconRepeat />
       </Repeat>
-      <Shuffle>
+      <Shuffle onClick={() => setIsShuffle(!isShuffle)} $active={isShuffle}>
         <IconShuffle />
       </Shuffle>
       {loading}
@@ -115,6 +161,13 @@ export const Player: FC<{ activeTrackId: number }> = ({ activeTrackId }) => {
       {content}
       {track && <audio ref={audioRef} src={track.track_file} controls={false} autoPlay={true} />}
       <VolumeControl type="range" min="0" max="1" step="0.1" onChange={handleVolumeChange} />
+      {track && (
+        <Duration>
+          <span>{formatTime(currentTime)}</span>
+          <span> / </span>
+          <span>{formatTime(track?.duration_in_seconds)}</span>
+        </Duration>
+      )}
     </Wrapper>
   );
 };
@@ -226,4 +279,25 @@ const VolumeControl = styled.input`
   margin-left: 1rem;
   width: 6rem;
   margin-left: auto;
+`;
+
+const Duration = styled.div`
+  position: absolute;
+  top: 0;
+  right: 1rem;
+  transform: translateY(-140%);
+  display: flex;
+  align-items: center;
+  color: #b1b1b1;
+  text-align: right;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-family: 'StratosSkyeng', sans-serif;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.125rem; /* 112.5% */
+  letter-spacing: 0.001rem;
+  > *:not(:last-child) {
+    margin-right: 0.25rem;
+  }
 `;

@@ -6,6 +6,7 @@ import { ITrack } from '../../interfaces/interfaces';
 import { isUndefined } from '@bunt/is';
 import { RootState } from '../../store/store';
 import { useSelector } from 'react-redux';
+import { selectFilteredTracks } from '../../store/reducers/trackSlice';
 
 type Props = {
   tracks: ITrack[] | undefined;
@@ -14,28 +15,7 @@ type Props = {
 };
 
 export const TrackTable: FC<Props> = ({ tracks, isLoading, isError }) => {
-  const selectedArtists = useSelector((state: RootState) => state.track.selectedArtists);
-  const selectedYears = useSelector((state: RootState) => state.track.selectedYears);
-  const selectedGenres = useSelector((state: RootState) => state.track.selectedGenres);
-  const searchQuery = useSelector((state: RootState) => state.track.searchQuery);
-
-  const filteredTracks = tracks?.filter((track) => {
-    const artistMatch =
-      selectedArtists.length === 0 ||
-      selectedArtists.some(
-        (artist) => artist.value === track.author.split(' ').join('').toLowerCase(),
-      );
-    const yearMatch =
-      selectedYears.length === 0 ||
-      selectedYears.some((year) => year.value === new Date(track.release_date).getFullYear());
-    const genreMatch =
-      selectedGenres.length === 0 ||
-      selectedGenres.some((genre) => genre.value === track.genre.split(' ').join('').toLowerCase());
-    const titleMatch = track.name.toLowerCase().includes(searchQuery.toLowerCase());
-    const artistSearchMatch = track.author.toLowerCase().includes(searchQuery.toLowerCase());
-
-    return artistMatch && yearMatch && genreMatch && (titleMatch || artistSearchMatch);
-  });
+  const filteredTracks = useSelector((state: RootState) => selectFilteredTracks(state)(tracks));
 
   const loading = isLoading && [...new Array(20)].map((_, i) => <TrackSkeleton key={i} />);
   const errorMessage = isError || (isUndefined(tracks) && <p>Ошибка загрузки</p>);
