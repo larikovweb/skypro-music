@@ -8,9 +8,10 @@ import useOnClickOutside from '../../hooks/useOnClickOutside';
 type Props = {
   label: string | number;
   options: ISelectOption[];
+  getValue: (option: ISelectOption[]) => void;
 };
 
-export const SelectMulty: FC<Props> = ({ label, options }) => {
+export const SelectMulty: FC<Props> = ({ label, options, getValue }) => {
   const [open, setOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState<ISelectOption[]>([]);
   const ref = useRef(null);
@@ -24,8 +25,10 @@ export const SelectMulty: FC<Props> = ({ label, options }) => {
   const toggleSelected = (option: ISelectOption) => {
     if (selectedOptions.some((o) => o.value === option.value)) {
       setSelectedOptions((state) => state.filter((o) => o.value !== option.value));
+      getValue(selectedOptions.filter((o) => o.value !== option.value));
     } else {
       setSelectedOptions((state) => [...state, option]);
+      getValue([...selectedOptions, option]);
     }
   };
 

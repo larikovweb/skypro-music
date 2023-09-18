@@ -3,8 +3,16 @@ import { FC } from 'react';
 import { SelectMulty } from '../select/SelectMulty';
 import { isUndefined } from '@bunt/is';
 import { ITrack } from '../../interfaces/interfaces';
+import { useDispatch } from 'react-redux';
+import {
+  setSelectedArtists,
+  setSelectedGenres,
+  setSelectedYears,
+} from '../../store/reducers/trackSlice';
 
 export const TrackFilter: FC<{ data: ITrack[] | undefined }> = ({ data }) => {
+  const dispatch = useDispatch();
+
   const artistOptions = !isUndefined(data)
     ? data.map((track) => ({
         label: track.author,
@@ -29,9 +37,27 @@ export const TrackFilter: FC<{ data: ITrack[] | undefined }> = ({ data }) => {
   return (
     <Wrapper>
       <Label>Искать по:</Label>
-      <SelectMulty label="исполнителю" options={artistOptions} />
-      <SelectMulty label="году выпуска" options={yearOptions} />
-      <SelectMulty label="жанру" options={genreOptions} />
+      <SelectMulty
+        label="исполнителю"
+        options={artistOptions}
+        getValue={(value) => {
+          dispatch(setSelectedArtists(value));
+        }}
+      />
+      <SelectMulty
+        label="году выпуска"
+        options={yearOptions}
+        getValue={(value) => {
+          dispatch(setSelectedYears(value));
+        }}
+      />
+      <SelectMulty
+        label="жанру"
+        options={genreOptions}
+        getValue={(value) => {
+          dispatch(setSelectedGenres(value));
+        }}
+      />
     </Wrapper>
   );
 };

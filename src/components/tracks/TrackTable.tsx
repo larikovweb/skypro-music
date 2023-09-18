@@ -4,6 +4,8 @@ import { TrackRow, TrackRowSort } from './TrackRow';
 import { TrackSkeleton } from '../../components/skeletons/TrackSkeleton';
 import { ITrack } from '../../interfaces/interfaces';
 import { isUndefined } from '@bunt/is';
+import { RootState } from '../../store/store';
+import { useSelector } from 'react-redux';
 
 type Props = {
   tracks: ITrack[] | undefined;
@@ -12,9 +14,32 @@ type Props = {
 };
 
 export const TrackTable: FC<Props> = ({ tracks, isLoading, isError }) => {
+  const selectedArtists = useSelector((state: RootState) => state.track.selectedArtists);
+  const selectedYears = useSelector((state: RootState) => state.track.selectedYears);
+  const selectedGenres = useSelector((state: RootState) => state.track.selectedGenres);
+
+  console.log(selectedArtists);
+  console.log(tracks);
+
+  const filteredTracks = tracks?.filter((track) => {
+    const artistMatch =
+      selectedArtists.length === 0 ||
+      selectedArtists.some(
+        (artist) => artist.value === track.author.split(' ').join('').toLowerCase(),
+      );
+    const yearMatch =
+      selectedYears.length === 0 ||
+      selectedYears.some((year) => year.value === new Date(track.release_date).getFullYear());
+    const genreMatch =
+      selectedGenres.length === 0 ||
+      selectedGenres.some((genre) => genre.value === track.genre.split(' ').join('').toLowerCase());
+    return artistMatch && yearMatch && genreMatch;
+  });
+
   const loading = isLoading && [...new Array(20)].map((_, i) => <TrackSkeleton key={i} />);
   const errorMessage = isError || (isUndefined(tracks) && <p>Ошибка загрузки</p>);
-  const content = tracks && tracks.map((track) => <TrackRow key={track.id} {...track} />);
+  const content =
+    filteredTracks && filteredTracks.map((track) => <TrackRow key={track.id} {...track} />);
 
   return (
     <Wrapper>
