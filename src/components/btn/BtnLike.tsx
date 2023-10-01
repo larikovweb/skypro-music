@@ -20,7 +20,11 @@ export const BtnLike: FC<Props> = ({ id }) => {
   });
   const [addToFavorites] = musicPlayerAPI.useAddToFavoritesMutation();
   const [removeFromFavorites] = musicPlayerAPI.useRemoveFromFavoritesMutation();
-  const { data: favoriteTracks, isLoading } = musicPlayerAPI.useGetAllFavoriteTracksQuery({
+  const {
+    data: favoriteTracks,
+    isLoading,
+    refetch,
+  } = musicPlayerAPI.useGetAllFavoriteTracksQuery({
     accessToken: accessToken?.access,
   });
 
@@ -28,14 +32,15 @@ export const BtnLike: FC<Props> = ({ id }) => {
     !isLoading && !isUndefined(favoriteTracks) && favoriteTracks.some((track) => track.id === id);
   const [liked, setLiked] = useState(isTrackInFavorites);
 
-  const handleToggleFavorites = (trackId: number) => {
+  const handleToggleFavorites = async (trackId: number) => {
     if (accessToken) {
       if (liked) {
-        removeFromFavorites({ id: trackId, accessToken: accessToken.access });
+        await removeFromFavorites({ id: trackId, accessToken: accessToken.access });
       } else {
-        addToFavorites({ id: trackId, accessToken: accessToken.access });
+        await addToFavorites({ id: trackId, accessToken: accessToken.access });
       }
       setLiked(!liked);
+      refetch();
     }
   };
 
