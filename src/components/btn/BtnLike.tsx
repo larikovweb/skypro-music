@@ -6,18 +6,22 @@ import { musicPlayerAPI } from '../../services/musicPlayerService';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { isUndefined } from '@bunt/is';
+import { authAPI } from '../../services/authService';
 
 type Props = {
   id: number;
 };
 
 export const BtnLike: FC<Props> = ({ id }) => {
-  const accessToken = useSelector((state: RootState) => state.auth.authResult)?.access;
+  const refresh = useSelector((state: RootState) => state.auth).authResult?.refresh;
 
+  const { data: accessToken } = authAPI.useRefreshTokenQuery({
+    refresh: refresh,
+  });
   const [addToFavorites] = musicPlayerAPI.useAddToFavoritesMutation();
   const [removeFromFavorites] = musicPlayerAPI.useRemoveFromFavoritesMutation();
   const { data: favoriteTracks, isLoading } = musicPlayerAPI.useGetAllFavoriteTracksQuery({
-    accessToken: accessToken,
+    accessToken: accessToken?.access,
   });
 
   const isTrackInFavorites =
@@ -27,9 +31,9 @@ export const BtnLike: FC<Props> = ({ id }) => {
   const handleToggleFavorites = (trackId: number) => {
     if (accessToken) {
       if (liked) {
-        removeFromFavorites({ id: trackId, accessToken });
+        removeFromFavorites({ id: trackId, accessToken: accessToken.access });
       } else {
-        addToFavorites({ id: trackId, accessToken });
+        addToFavorites({ id: trackId, accessToken: accessToken.access });
       }
       setLiked(!liked);
     }
