@@ -26,7 +26,10 @@ export const authAPI = createApi({
         headers: { 'content-type': 'application/json' },
       }),
     }),
-    getToken: build.mutation<{ access: string }, { email: string; password: string }>({
+    getToken: build.mutation<
+      { access: string; refresh: string },
+      { email: string; password: string }
+    >({
       query: (credentials) => ({
         url: '/user/token/',
         method: 'POST',
@@ -34,11 +37,11 @@ export const authAPI = createApi({
         headers: { 'content-type': 'application/json' },
       }),
     }),
-    refreshToken: build.mutation<{ access: string }, { refresh: string }>({
-      query: (refreshToken) => ({
+    refreshToken: build.query<{ access: string }, { refresh?: string }>({
+      query: (credentials) => ({
         url: '/user/token/refresh/',
         method: 'POST',
-        body: refreshToken,
+        body: credentials,
         headers: { 'content-type': 'application/json' },
       }),
     }),
