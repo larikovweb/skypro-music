@@ -10,7 +10,7 @@ import { RootState } from '../../../store/store';
 import { useSelector } from 'react-redux';
 import { selectFilteredTracks } from '../../../store/reducers/trackSlice';
 import { isUndefined } from '@bunt/is';
-import { formatDuration, formatTime } from '../../../fn';
+import { formatTime } from '../../../fn';
 
 export const Player: FC<{ activeTrackId: number }> = ({ activeTrackId }) => {
   const [trackId, setTrackId] = useState(activeTrackId);

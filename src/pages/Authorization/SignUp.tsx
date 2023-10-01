@@ -45,7 +45,7 @@ const SignUp: FC = () => {
         username: data.email,
       });
       const tokenResult = await getToken({ email: data.email, password: data.password });
-
+      console.log(result);
       if ('data' in result && 'data' in tokenResult) {
         dispatch(saveAuthResult({ ...result.data, ...tokenResult.data }));
         redirect(MAIN_ROUTE);
@@ -79,7 +79,7 @@ const SignUp: FC = () => {
           {...register('password', {
             required: 'Пароль обязателен',
             minLength: {
-              value: 6,
+              value: 8,
               message: 'Пароль должен содержать не менее 6 знаков',
             },
           })}
