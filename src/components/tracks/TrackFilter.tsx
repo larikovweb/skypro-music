@@ -20,12 +20,11 @@ export const TrackFilter: FC<{ data: ITrack[] | undefined }> = ({ data }) => {
       }))
     : [];
 
-  const yearOptions = !isUndefined(data)
-    ? data.map((track) => ({
-        label: new Date(track.release_date).getFullYear(),
-        value: new Date(track.release_date).getFullYear(),
-      }))
-    : [];
+  const yearOptions = [
+    { label: 'По умолчанию', value: 'default' },
+    { label: 'Сначала новые', value: 'new' },
+    { label: 'Сначала старые', value: 'old' },
+  ];
 
   const genreOptions = !isUndefined(data)
     ? data.map((track) => ({
@@ -47,6 +46,7 @@ export const TrackFilter: FC<{ data: ITrack[] | undefined }> = ({ data }) => {
       <SelectMulty
         label="году выпуска"
         options={yearOptions}
+        oneOption
         getValue={(value) => {
           dispatch(setSelectedYears(value));
         }}

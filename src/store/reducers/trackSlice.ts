@@ -54,25 +54,31 @@ export const selectFilteredTracks = createSelector(
   selectTrackState,
   ({ selectedArtists, selectedYears, selectedGenres, searchQuery }: TrackState) =>
     (tracks?: ITrack[]) => {
-      return tracks?.filter((track) => {
-        const artistMatch =
-          selectedArtists.length === 0 ||
-          selectedArtists.some(
-            (artist) => artist.value === track.author.split(' ').join('').toLowerCase(),
-          );
-        const yearMatch =
-          selectedYears.length === 0 ||
-          selectedYears.some((year) => year.value === new Date(track.release_date).getFullYear());
-        const genreMatch =
-          selectedGenres.length === 0 ||
-          selectedGenres.some(
-            (genre) => genre.value === track.genre.split(' ').join('').toLowerCase(),
-          );
-        const titleMatch = track.name.toLowerCase().includes(searchQuery.toLowerCase());
-        const artistSearchMatch = track.author.toLowerCase().includes(searchQuery.toLowerCase());
+      return tracks
+        ?.filter((track) => {
+          const artistMatch =
+            selectedArtists.length === 0 ||
+            selectedArtists.some(
+              (artist) => artist.value === track.author.split(' ').join('').toLowerCase(),
+            );
+          const genreMatch =
+            selectedGenres.length === 0 ||
+            selectedGenres.some(
+              (genre) => genre.value === track.genre.split(' ').join('').toLowerCase(),
+            );
+          const titleMatch = track.name.toLowerCase().includes(searchQuery.toLowerCase());
+          const artistSearchMatch = track.author.toLowerCase().includes(searchQuery.toLowerCase());
 
-        return artistMatch && yearMatch && genreMatch && (titleMatch || artistSearchMatch);
-      });
+          return artistMatch && genreMatch && (titleMatch || artistSearchMatch);
+        })
+        .toSorted((a, b) => {
+          if (selectedYears[0] && selectedYears[0].value === 'new') {
+            return new Date(b.release_date).getFullYear() - new Date(a.release_date).getFullYear();
+          } else if (selectedYears[0] && selectedYears[0].value === 'old') {
+            return new Date(a.release_date).getFullYear() - new Date(b.release_date).getFullYear();
+          }
+          return 0;
+        });
     },
 );
 

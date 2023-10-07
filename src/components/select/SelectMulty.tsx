@@ -9,9 +9,10 @@ type Props = {
   label: string | number;
   options: ISelectOption[];
   getValue: (option: ISelectOption[]) => void;
+  oneOption?: boolean;
 };
 
-export const SelectMulty: FC<Props> = ({ label, options, getValue }) => {
+export const SelectMulty: FC<Props> = ({ label, options, getValue, oneOption }) => {
   const [open, setOpen] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState<ISelectOption[]>([]);
   const ref = useRef(null);
@@ -27,8 +28,13 @@ export const SelectMulty: FC<Props> = ({ label, options, getValue }) => {
       setSelectedOptions((state) => state.filter((o) => o.value !== option.value));
       getValue(selectedOptions.filter((o) => o.value !== option.value));
     } else {
-      setSelectedOptions((state) => [...state, option]);
-      getValue([...selectedOptions, option]);
+      if (oneOption) {
+        setSelectedOptions([option]);
+        getValue([option]);
+      } else {
+        setSelectedOptions((state) => [...state, option]);
+        getValue([...selectedOptions, option]);
+      }
     }
   };
 
